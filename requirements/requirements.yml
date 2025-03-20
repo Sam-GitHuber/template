@@ -1,0 +1,5 @@
+name: template
+dependencies:
+  - python>=3
+  - pandas
+  - numpy

@@ -1,12 +1,7 @@
 #!/bin/bash
 
 # Extract the environment name from the YAML file
-ENV_NAME=$(grep "^name:" requirements.yml | awk '{print $2}')
-
-if [ -z "$ENV_NAME" ]; then
-    echo "Error: Unable to find the environment name in environment.yml"
-    exit 1
-fi
+ENV_NAME=$(grep 'name: ' requirements.yml | cut -d ' ' -f2)
 
 echo "Environment name extracted: $ENV_NAME"
 
@@ -18,6 +13,6 @@ if conda info --envs | grep -q "^${ENV_NAME} "; then
 fi
 
 # Create the environment
-echo "Creating the conda environment from environment.yml..."
+echo "Creating the conda environment from requirements.yml..."
 conda env create -f requirements.yml
 echo "Environment '${ENV_NAME}' created successfully!"

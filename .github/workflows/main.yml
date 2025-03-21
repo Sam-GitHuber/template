@@ -1,6 +1,6 @@
-name: Run Pytest
+name: Run Pytest with coverage
 
-on: push
+on: [push, pull_request]
 
 jobs:
   test:
@@ -20,6 +20,12 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r ./requirements/test_requirements.txt
 
-    - name: Run pytest
+    - name: Run pytest with coverage
       run: |
-        pytest tests/
+        pytest tests/ --cov=src --cov-report=xml --cov-fail-under=80
+      
+    # - name: Upload coverage report
+    #   uses: actions/upload-artifact@v3
+    #   with:
+    #     name: coverage-report
+    #     path: coverage.xml
